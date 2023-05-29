@@ -24,5 +24,11 @@ class TaskModel {
         $query = Database::$connection->query("DELETE FROM tasks WHERE task_id=$task_id");
         return $query->fetch();
     }
+
+    public function Update($task_id, $task_message): array
+    {
+        $query = Database::$connection->query("UPDATE tasks SET task_message='$task_message' WHERE task_id=$task_id");
+        return $query->fetch();
+    }
 }
 ?>

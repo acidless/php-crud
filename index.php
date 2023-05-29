@@ -25,6 +25,10 @@
             justify-content: flex-start;
         }
 
+        .task p {
+            cursor: pointer;
+        }
+
         .task time {
             margin-left: auto;
             margin-right: 0.5em;
@@ -54,12 +58,31 @@ foreach ($tasks as $task) {
     echo "<div class='task'>
         <p>" . $task['task_message'] . "</p>
         <time>" . $date->format('Y-m-d H:i:s') . "</time>
-        <form action='./delete-task.php' method='POST'>
-        <input name='task_id' type='hidden' value='".$task['task_id']."'>
+        <form class='task__delete' action='./delete-task.php' method='POST'>
+            <input name='task_id' type='hidden' value='".$task['task_id']."'>
             <button>Del</button>
         </form>
     </div>";
 }
 ?>
 </body>
+<script>
+    document.querySelectorAll(".task").forEach(task=>{
+        const p = task.querySelector("p");
+
+        p.addEventListener("click", ()=> {
+            const input = p.querySelector("input");
+            const taskId = task.querySelector(".task__delete input");
+
+            if(!input){
+
+                p.innerHTML = "<form action='./update-task.php' method='POST'> " +
+                    "<input name='task_id' type='hidden' value='" + taskId.value +"'>" +
+                    "<input name='task_message' value='" + p.textContent + "'>" +
+                    "<button>Ok</button> " +
+                    "</form>";
+            }
+        })
+    })
+</script>
 </html>

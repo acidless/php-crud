@@ -18,5 +18,11 @@ class TaskModel {
         $query = Database::$connection->query("INSERT INTO tasks (task_message, task_time) VALUES ('$task_message', '". date("Y-m-d h:m:s", time()) . "')");
         return $query->fetch();
     }
+
+    public function Delete($task_id): array
+    {
+        $query = Database::$connection->query("DELETE FROM tasks WHERE task_id=$task_id");
+        return $query->fetch();
+    }
 }
 ?>

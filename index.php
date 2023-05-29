@@ -22,7 +22,12 @@
             background: lightgray;
             padding: 0.5em;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
+        }
+
+        .task time {
+            margin-left: auto;
+            margin-right: 0.5em;
         }
 
         .task:not(:last-child) {
@@ -46,7 +51,14 @@ $tasks = $model->GetAll();
 foreach ($tasks as $task) {
     $date = new DateTime($task['task_time']);
 
-    echo "<div class='task'><p>" . $task['task_message'] . "</p><time>" . $date->format('Y-m-d H:i:s') . "</time></div>";
+    echo "<div class='task'>
+        <p>" . $task['task_message'] . "</p>
+        <time>" . $date->format('Y-m-d H:i:s') . "</time>
+        <form action='./delete-task.php' method='POST'>
+        <input name='task_id' type='hidden' value='".$task['task_id']."'>
+            <button>Del</button>
+        </form>
+    </div>";
 }
 ?>
 </body>
